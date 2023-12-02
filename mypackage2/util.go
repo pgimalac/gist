@@ -15,7 +15,10 @@ func MyFun() MyType {
 }
 
 func getCallerName(depth int) string {
-	_, filename, _, _ := runtime.Caller(depth)
+	_, filename, _, ok := runtime.Caller(depth)
+	if !ok {
+		panic("Could not get caller name")
+	}
 	func() {}()
 	return filename
 }
